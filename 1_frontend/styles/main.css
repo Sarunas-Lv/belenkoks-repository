@@ -1,0 +1,78 @@
+/* RESETS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+input,
+button,
+span {
+  font-family: 'Courier New', Courier, monospace;
+}
+/* vars */
+:root {
+  /* colors */
+  --primary-color: hotpink;
+  --secondary-color: pink;
+
+  --text-dark-color: #000;
+  --text-light-color: #fff;
+}
+/* Utilities */
+.container {
+  padding: 0 15px;
+  max-width: 1024px;
+  margin: auto;
+}
+
+/* MOBILE FIRST */
+/* Mobile */
+/* header */
+header {
+  background-color: var(--primary-color);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .container #logo {
+  color: var(--text-light-color);
+  font-size: 1.3em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+header .container nav ul {
+  list-style: none;
+  display: flex;
+}
+header .container nav ul li {
+  padding: 10px 15px;
+}
+header .container nav ul li a {
+  text-decoration: none;
+  color: var(--text-light-color);
+}
+header .container nav ul li:hover {
+  background-color: var(--text-light-color);
+}
+header .container nav ul li:hover a {
+  color: var(--primary-color);
+}
+/* --- main */
+main .container section {
+  padding: 40px;
+}
+main .container section h1 {
+  text-align: center;
+  font-size: 2em;
+}
