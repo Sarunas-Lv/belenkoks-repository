@@ -32,9 +32,32 @@ span {
   margin: auto;
 }
 
+.btn-primary {
+  display: inline-block;
+  margin-top: 10px;
+  border: 0;
+  padding: 5px 10px;
+  border-radius: 3px;
+
+  font-size: 1em;
+  text-decoration: none;
+  background-color: var(--primary-color);
+  color: var(--text-light-color);
+
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.8;
+}
+
+.hidden {
+  display: none;
+}
+
 /* MOBILE FIRST */
 /* Mobile */
-/* header */
+/* -- header */
 header {
   background-color: var(--primary-color);
 }
@@ -45,34 +68,151 @@ header .container {
   align-items: center;
 }
 
-header .container #logo {
+header .container div {
   color: var(--text-light-color);
   font-size: 1.3em;
-  text-transform: uppercase;
   font-weight: bold;
+  text-transform: uppercase;
 }
+
 header .container nav ul {
-  list-style: none;
   display: flex;
+  list-style: none;
 }
+
 header .container nav ul li {
-  padding: 10px 15px;
+  padding: 15px;
 }
+
 header .container nav ul li a {
-  text-decoration: none;
   color: var(--text-light-color);
+  text-decoration: none;
 }
+
 header .container nav ul li:hover {
-  background-color: var(--text-light-color);
+  background: white;
 }
+
 header .container nav ul li:hover a {
   color: var(--primary-color);
 }
-/* --- main */
-main .container section {
-  padding: 40px;
+
+/* index.html*/
+/* -- main */
+main .container section:first-child {
+  padding: 40px 20px;
 }
+
 main .container section h1 {
   text-align: center;
-  font-size: 2em;
+  font-size: 1.7em;
+}
+
+main .container section #latest-cars {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+main .container section #latest-cars .car {
+  width: calc(100% / 2 - 15px);
+  margin: 0 7.5px;
+  padding: 20px;
+
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0 0 1px rgba(10, 10, 10, 0.02);
+}
+
+main .container section #latest-cars .car h4 {
+  margin-bottom: 10px;
+  font-size: 1.4em;
+  border-bottom: 1px solid #ededed;
+}
+
+main .container section #latest-cars .car p {
+  padding-bottom: 5px;
+}
+
+/* login.html */
+main .container #login,
+main .container #signup {
+  padding: 30px;
+
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0 0 1px rgba(10, 10, 10, 0.02);
+}
+
+main .container #signup {
+  margin-top: 35px;
+}
+
+main .container section h2 span {
+  font-weight: 400;
+}
+
+main .container #login form,
+main .container #signup form {
+  margin-top: 10px;
+}
+
+main .container #login form .form-control,
+main .container #signup form .form-control {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+main .container #login form label,
+main .container #signup form label {
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+
+main .container #login form input,
+main .container #signup form input {
+  padding: 5px 7px;
+  font-size: 1em;
+
+  color: #555;
+}
+
+main .container #login form input[type='submit'],
+main .container #signup form input[type='submit'] {
+  width: fit-content;
+  color: #fff;
+}
+
+main .container #signup #signUpMessage {
+  margin-top: 15px;
+  padding: 5px 10px;
+  border-left: 5px solid red;
+  border-radius: 3px 0px 0px 3px;
+  background-color: #f8f8f8;
+}
+
+/* Tablet*/
+@media screen and (min-width: 768px) {
+  /* -- main */
+  /* index.hmtl */
+  main .container section #latest-cars .car {
+    width: calc(100% / 4 - 15px);
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+  /* -- main */
+  /* login.html */
+  main .container .login-signup-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  main .container .login-signup-container #login,
+  main .container .login-signup-container #signup {
+    width: calc(100% / 2 - 30px);
+  }
+
+  main .container .login-signup-container #signup {
+    margin-top: 0;
+  }
 }
