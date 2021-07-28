@@ -1,16 +1,36 @@
 // Imports
-import { REGISTER_USER_URI } from '../modules/endpoints/endpoints.js';
+import {
+  REGISTER_USER_URI,
+  LOGIN_USER_URI,
+} from '../modules/endpoints/endpoints.js';
 
 // --- LOGIN ---
 //--------------
 
 // Variables
-// -- DOM emelemts
+// -- DOM elements
+const logInFormElement = document.querySelector('#logInForm');
+console.log(logInFormElement.loginEmail);
+const logInMessageElement = document.querySelector('#loginMessage');
+// Functions
+const logInUser = (e) => {
+  e.preventDefault();
+  console.log('Vaziuojam!');
+  const user = {
+    email: e.target.loginEmail.value,
+    password: e.target.loginPassword.value,
+  };
 
-// Funtions
-
+  return fetch(LOGIN_USER_URI, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+};
 // Events
-
+logInFormElement.addEventListener('subimt', logInUser);
 // --- SIGNUP ---
 //---------------
 
@@ -19,7 +39,7 @@ import { REGISTER_USER_URI } from '../modules/endpoints/endpoints.js';
 const signUpFormElement = document.querySelector('#signUpForm');
 const signUpMessageElement = document.querySelector('#signUpMessage');
 
-// Funtions
+// Functions
 const signUpUser = (e) => {
   e.preventDefault();
 
