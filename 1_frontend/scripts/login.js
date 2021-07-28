@@ -27,10 +27,26 @@ const logInUser = (e) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.loginStatus === 'fail') {
+        e.target.loginEmail.value = '';
+        e.target.loginPassword.value = '';
+
+        e.target.loginEmail.focus();
+        logInMessageElement.classList.remove('hidden');
+        logInMessageElement.innerText = `${data.message}`;
+      } else if (data.loginStatus === 'success') {
+        localStorage.setItem('user', JSON.stringify(data.userId));
+
+        location.href =
+          'http://127.0.0.1:5500/1_frontend/pages/my-account.html';
+      }
+    });
 };
 // Events
-logInFormElement.addEventListener('subimt', logInUser);
+logInFormElement.addEventListener('submit', logInUser);
 // --- SIGNUP ---
 //---------------
 
@@ -80,7 +96,7 @@ const signUpUser = (e) => {
         signUpMessageElement.classList.remove('hidden');
         signUpMessageElement.innerText = data.message;
       } else if (data.registrationStatus === 'success') {
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('user', JSON.stringify(data.userId));
 
         location.href =
           'http://127.0.0.1:5500/1_frontend/pages/my-account.html';
