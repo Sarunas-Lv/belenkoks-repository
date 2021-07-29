@@ -105,33 +105,18 @@ const showCars = (userData) => {
 };
 
 // -- delete car (for embeded DB with single collection)
-const deleteCar = (e) => {
-  let carToDelete = {
-    userId: e.target.dataset.userId,
-    carId: e.target.dataset.carId,
-  };
-
-  return fetch(DELETE_CAR_URI + carToDelete.userId, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(carToDelete),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      showUser(data);
-      showCars(data);
-    });
-};
-
-// -- delete car (for listed DB with multiple collections)
 // const deleteCar = (e) => {
-//   let carId = e.target.dataset.carId;
+//   let carToDelete = {
+//     userId: e.target.dataset.userId,
+//     carId: e.target.dataset.carId,
+//   };
 
-//   return fetch(DELETE_CAR_URI + carId, {
-//     method: 'DELETE',
+//   return fetch(DELETE_CAR_URI + carToDelete.userId, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(carToDelete),
 //   })
 //     .then((res) => res.json())
 //     .then((data) => {
@@ -140,6 +125,21 @@ const deleteCar = (e) => {
 //       showCars(data);
 //     });
 // };
+
+// -- delete car (for listed DB with multiple collections)
+const deleteCar = (e) => {
+  let carId = e.target.dataset.carId;
+
+  return fetch(DELETE_CAR_URI + carId, {
+    method: 'DELETE',
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      showUser(data);
+      showCars(data);
+    });
+};
 
 // -- add car
 const addCar = (e) => {

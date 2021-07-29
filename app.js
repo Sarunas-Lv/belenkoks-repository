@@ -24,13 +24,10 @@ mongoose
     useFindAndModify: false,
   })
   .then((response) => {
-    console.log(`Ongo bongo connected to Mongo!`.blue.underline.bold);
+    console.log(`Connected to MongoDB`.blue.underline.bold);
     // Starting server
     app.listen(PORT, () =>
-      console.log(
-        `Uwu~  (ᵘʷᵘ) Big bad Server is running on port ${PORT} >:(. Please senpai go catch it!  ˚‧º·(˚ ˃̣̣̥⌓˂̣̣̥ )‧º·˚`
-          .magenta.underline.bold
-      )
+      console.log(`Server is running on port ${PORT}...`.yellow.underline.bold)
     );
   });
 
@@ -38,17 +35,29 @@ mongoose
 app.get('/', (req, res) => res.send('API is running...'));
 
 // GET: all cars
-app.get('/api/cars', (req, res) => {
-  UserAndCars.find({}).then((data) => res.json(data));
+app.get('/api/cars', async (req, res) => {
+  let users = await User.find({});
+  let cars = await Car.find({});
+
+  let usersAndCars = users.reduce((total, user) => {
+    let userCars = cars.filter((car) => car.user_id === '' + user._id);
+
+    total.push({ ...user.toObject(), cars: [...userCars] });
+
+    return total;
+  }, []);
+
+  res.json(usersAndCars);
 });
 
 // GET: get single user based on id
-app.get('/api/users/:id', (req, res) => {
+app.get('/api/users/:id', async (req, res) => {
   let userId = req.params.id;
 
-  User.findById(userId).then((result) => {
-    res.json(result);
-  });
+  let user = await User.findById(userId);
+  let cars = await Car.find({ user_id: userId });
+
+  res.json({ ...user.toObject(), cars: [...cars] });
 });
 
 // POST: register new user
@@ -107,7 +116,7 @@ app.post('/api/users/login', (req, res) => {
   });
 });
 
-// PUT: Delete single car based on it's id
+// PUT: Delete single car based on it's id (use this route for embeded DB with single collection)
 app.put('/api/cars/delete/:id', async (req, res) => {
   let { userId, carId } = req.body;
 
@@ -139,22 +148,33 @@ app.put('/api/cars/add/:id', async (req, res) => {
   let user = await User.findById(userId);
   let cars = await Car.find({ user_id: userId });
 
-  console.log('user', user);
-  console.log('cars', cars);
+  res.json({ ...user.toObject(), cars: [...cars] });
+});
 
-  res.end({ ...user, cars: [...cars] });
+// DELETE: Delete single car based on it's id (for listed DB with multiple collections)
+app.delete('/api/cars/delete/:id', async (req, res) => {
+  const carId = req.params.id;
+
+  const deletedCar = await Car.findByIdAndDelete(carId);
+
+  const user = await User.findById(deletedCar.user_id);
+  const cars = await Car.find({ user_id: deletedCar.user_id });
+
+  res.json({ ...user.toObject(), cars: [...cars] });
 });
 
 // --------------------------------------------------------------------
 // REST API
 /*
-GET:   /api/cars'             | Get all cars
-       /api/users/:id         | Get single user based on id
+GET:     /api/cars              | Get all cars
+         /api/users/:id         | Get single user based on id
 
-POST:  /api/users/signup      | Register new user
-       /api/users/login       | Log in existing user
+POST:    /api/users/signup      | Register new user
+         /api/users/login       | Log in existing user
 
-PUT:   /api/cars/delete/:id   | Delete single car based on it's id
-       /api/cars/add/:id      | Add single car to user based on his id
+PUT:     /api/cars/delete/:id   | Delete single car based on it's id (for embeded DB with one collention)
+         /api/cars/add/:id      | Add single car to user based on his id
+
+DELETE:  /api/cars/delete/:id   | Delete single car based on it's id (for listed DB with multiple collections)
 */
 //---------------------------------------------------------------------
