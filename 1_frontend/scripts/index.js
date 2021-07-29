@@ -15,11 +15,12 @@ const showCars = async () => {
   latestCarsElement.innerHTML = data.reduce((total, item) => {
     total += item.cars.reduce((carsTotal, carsItem) => {
       carsTotal += `
-      <div class="car" id="${carsItem._id}">
+      <div class="car card-shadow" id="${carsItem._id}">
         <h4>${carsItem.make} ${carsItem.model}</h4>
         <p>Year: ${carsItem.year}</p>
         <p>Price: $${carsItem.price.toFixed(2)}</p>
-        <a href="#" class="btn-primary">Learn more <i class="fas fa-angle-double-right"></i></a>
+        <p>Seller: ${item.name} ${item.surname}</p>
+        <p>Email: ${item.email}</p>
       </div>
       `;
 

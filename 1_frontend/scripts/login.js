@@ -10,12 +10,12 @@ import {
 // Variables
 // -- DOM elements
 const logInFormElement = document.querySelector('#logInForm');
-console.log(logInFormElement.loginEmail);
-const logInMessageElement = document.querySelector('#loginMessage');
-// Functions
-const logInUser = (e) => {
+const loginMessageElement = document.querySelector('#loginMessage');
+
+// Funtions
+const loginUser = (e) => {
   e.preventDefault();
-  console.log('Vaziuojam!');
+
   const user = {
     email: e.target.loginEmail.value,
     password: e.target.loginPassword.value,
@@ -30,13 +30,16 @@ const logInUser = (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.loginStatus === 'fail') {
+      console.log(data);
+
+      if (data.loginStatus === 'failed') {
         e.target.loginEmail.value = '';
         e.target.loginPassword.value = '';
 
         e.target.loginEmail.focus();
-        logInMessageElement.classList.remove('hidden');
-        logInMessageElement.innerText = `${data.message}`;
+
+        loginMessageElement.classList.remove('hidden');
+        loginMessageElement.innerText = data.message;
       } else if (data.loginStatus === 'success') {
         localStorage.setItem('user', JSON.stringify(data.userId));
 
@@ -45,17 +48,19 @@ const logInUser = (e) => {
       }
     });
 };
+
 // Events
-logInFormElement.addEventListener('submit', logInUser);
+logInFormElement.addEventListener('submit', loginUser);
+
 // --- SIGNUP ---
 //---------------
 
 // Variables
-// -- DOM emelemts
+// -- DOM elements
 const signUpFormElement = document.querySelector('#signUpForm');
 const signUpMessageElement = document.querySelector('#signUpMessage');
 
-// Functions
+// Funtions
 const signUpUser = (e) => {
   e.preventDefault();
 
