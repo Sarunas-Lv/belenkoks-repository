@@ -27,9 +27,8 @@ For embeded:
 1. Make sure listed server is killed if you started it before.
 2. Navigate to /2_backend_embeded
 3. Create .env file which will containt two variables: 
-`PORT = 8000
-
-MONGODB_URI = (write your mongodb collection port here, must be different than listed)`
+`PORT = 8000`
+`MONGODB_URI = (write your mongodb collection port here, must be different than listed)`
 4. Open integrated terminal
 5. Write `npm i` and hit enter
 6. Write `node seeder.js` to send initial data
@@ -41,9 +40,8 @@ For listed:
 1. Make sure embeded server is killed if you started it before.
 2.  Navigate to /2_backend_listed
 3. Create .env file which will containt two variables: 
-`PORT = 8000
-
-MONGODB_URI = (write your mongodb collection port here, must be different than embeded)`
+`PORT = 8000`
+`MONGODB_URI = (write your mongodb collection port here, must be different than embeded)`
 4. Open integrated terminal
 5. Write `npm i` and hit enter
 6. Write `node seeder.js` to send initial data
